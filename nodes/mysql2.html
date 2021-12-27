@@ -1,0 +1,79 @@
+<script type="text/javascript"> 
+    
+    RED.nodes.registerType('mysql2', {
+        category: 'storage',
+        defaults: {
+            name: {value:""},            
+            server: { value: "", type: "mysql2-server", required: false},
+            bind: {value:""},
+            topic: {value:""}            
+        },
+        label: function () {
+            return this.name || "mysql2"
+        },
+        inputs: 1,
+        outputs: 1,        
+        color: '#ED622B',        
+        icon: 'db.png'
+    });
+</script>
+
+
+<script type="text/x-red" data-template-name="mysql2">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-list"></i> Name</label>
+        <input type="text" id="node-input-name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-server"><i class="fa fa-server"></i> Server</label>
+        <input type="text" id="node-input-server" placeholder="msg.server">
+    </div>
+    <div class="form-row">
+        <input type="checkbox" id="node-input-bind" style="width:auto">
+        <label for="node-input-bind" style="width:80%;margin:20px 5px;"> Binds <code>msg.payload</code> array.</label>                    
+    </div>
+    <div class="form-row">
+        <textarea id="node-input-topic" style="height:250px;width:80%"></textarea>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="mysql2">
+    <p>Query mysql data, bind <code>msg.payload</code> to the query and get query results from <code>msg.payload</code>.</p>
+    <h3>Inputs</h3>
+        <dl class="message-properties">
+            <dt>server: <span class="property-type">object</span></dt>
+            <p>msg.server overrides the default server configured for this node. Make sure that <code>msg.server</code> is not set to use the deafult config.</p>
+            <dd><ul><code>server</code> is a JSON object has the following properties.
+                    <li>host: mysql server host name</li>
+                    <li>port: mysql server port number (Integer)</li>
+                    <li>username: mysql username</li>
+                    <li>password: mysql password</li>
+                    <li>db: mysql database name</li>
+            </ul></dd>
+            <dd>
+                <code>msg.server</code> = {
+                    "host": "localhost",
+                    "port": 3306,
+                    "username": "root",
+                    "password": "sample",
+                    "db": "testdb"
+                }
+            </dd>
+            <dt>bind: <span class="property-type">boolean</span></dt>
+            <dd>Binds the <code>msg.payload</code> to the query, when checked.</dd>
+            <dt>msg.payload: <span class="property-type">Array</span></dt>
+            <dd><code>msg.payload</code> should be an array that will bind values to the query.</dd>
+            <dt>topic: <span class="property-type">string</span></dt>
+            <dd>Query to execute.</dd>
+            <dd><code>msg.topic</code> will override 'topic' value of node.(textarea in query tab.)</dd>            
+        </dl>
+
+    <h3>Outputs</h3>
+        <dl class="message-properties">
+            <dt>msg.payload: <span class="property-type">Array</span></dt>
+            <dd>Query output.</dd>
+            <dt>msg.error: <span class="property-type">object</span></dt>
+            <dd><code>msg.error</code> When the node has invalid connection detail or query execution exceptions.</dd>
+        </dl>
+
+ </script>

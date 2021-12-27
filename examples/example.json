@@ -1,0 +1,104 @@
+[{
+    "id": "2e62d5dd.0d3a1a",
+    "type": "tab",
+    "label": "main",
+    "disabled": false,
+    "info": ""
+}, {
+    "id": "fe7bb998.59a728",
+    "type": "mysql2",
+    "z": "2e62d5dd.0d3a1a",
+    "name": "",
+    "server": "",
+    "bind": "",
+    "topic": "",
+    "x": 388,
+    "y": 45,
+    "wires": [
+        ["4a9aaeb3.5dcc18"]
+    ]
+}, {
+    "id": "8cd8849f.5b4168",
+    "type": "inject",
+    "z": "2e62d5dd.0d3a1a",
+    "name": "",
+    "topic": "",
+    "payload": "{\"server\":{\"host\":\"chq05-w10-tst01.axcess-financial.com\",\"port\":3306,\"username\":\"username\",\"password\":\"password\",\"db\":\"robot\"}}",
+    "payloadType": "json",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 112.5,
+    "y": 158,
+    "wires": [
+        ["6de887c3.f67b98"]
+    ]
+}, {
+    "id": "4a9aaeb3.5dcc18",
+    "type": "debug",
+    "z": "2e62d5dd.0d3a1a",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "x": 519.5,
+    "y": 125,
+    "wires": []
+}, {
+    "id": "6de887c3.f67b98",
+    "type": "change",
+    "z": "2e62d5dd.0d3a1a",
+    "name": "server",
+    "rules": [{
+        "t": "set",
+        "p": "server",
+        "pt": "msg",
+        "to": "payload.server",
+        "tot": "msg"
+    }, {
+        "t": "set",
+        "p": "topic",
+        "pt": "msg",
+        "to": "{\"query\":\"Select * from ServerlessCoreAPI\"}",
+        "tot": "json"
+    }],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 241.5,
+    "y": 106,
+    "wires": [
+        ["fe7bb998.59a728"]
+    ]
+}, {
+    "id": "4b504659.55c5a8",
+    "type": "catch",
+    "z": "2e62d5dd.0d3a1a",
+    "name": "",
+    "scope": null,
+    "uncaught": false,
+    "x": 232.5,
+    "y": 254,
+    "wires": [
+        ["b051bb0f.ccce38"]
+    ]
+}, {
+    "id": "b051bb0f.ccce38",
+    "type": "debug",
+    "z": "2e62d5dd.0d3a1a",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 449,
+    "y": 213,
+    "wires": []
+}]
